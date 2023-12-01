@@ -9,12 +9,23 @@ class Home extends StatefulWidget {
 }
 
 List<String> img = [
-  'assets/picture1166.jpg',
-  'assets/picture1167.jpg',
-  'assets/picture1175.jpg',
-  'assets/picture1177.jpg',
+  'assets/picture1166.png',
+  'assets/picture1167.png',
+  'assets/picture1175.png',
+  'assets/picture1177.png',
+  'assets/picture1169.png',
+  'assets/picture1171.png',
 
 ];
+
+List<String> img1 = [
+  'assets/Rphoto1.png',
+  'assets/Rp3.png',
+  'assets/google.png',
+
+
+];
+
 int index=0;
 class _HomeState extends State<Home> {
 
@@ -83,6 +94,7 @@ class _HomeState extends State<Home> {
                   CircleAvatar(
                     radius: 35,
                     backgroundColor: Colors.grey,
+                    child: Image.asset("assets/Rphoto1.png"),
                   ),
                   SizedBox(
                     width: 30,
@@ -338,28 +350,99 @@ class _HomeState extends State<Home> {
                   SizedBox(height: 15,),
                   Row(
                     children: [
-                      Column(
-                        children: [
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundColor: Colors.white,
-                            child: CircleAvatar(
-                              radius: 34.4,
-                              backgroundColor: Colors.black,
-                              child: Center(child: Icon(Icons.add,color: Colors.white,size: 28,)),
+                      SizedBox(width: 280,
+                        height: 92,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: img1.length,
+                          itemBuilder: (context, index) {
+                            return
 
-                            ),
-                          ),
-                          SizedBox(height: 5,),
-                          Text(
-                            'New',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white),
-                          ),
-                        ],
+                                  Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: CircleAvatar(
+                                          radius: 35,
+                                          backgroundColor: Colors.white,
+                                          child: CircleAvatar(
+                                            radius: 34.4,
+                                            backgroundColor: Colors.black,
+                                            child: Center(child:Image.asset(img1[index]),
+
+                                          ),
+                                        ),
+                                         // SizedBox(height: 5,),
+                                        // Text(
+                                        //   'New',
+                                        //   style: TextStyle(
+                                        //       fontSize: 12,
+                                        //       fontWeight: FontWeight.w400,
+                                        //       color: Colors.white),
+                                        // ),
+                                        ),
+                                      )],
+                                  );
+                            // SizedBox(width: 10,),
+                            // Column(
+                            // children: [
+                            //
+                            // CircleAvatar(
+                            // radius: 35,
+                            // backgroundColor: Colors.white,
+                            // child: CircleAvatar(
+                            // radius: 34.4,
+                            // backgroundColor: Colors.black,
+                            // child: Center(child: Icon(
+                            // Icons.add, color: Colors.white,
+                            // size: 28,)),
+                            //
+                            // ),
+                            // ),
+                            // SizedBox(height: 5,),
+                            // Text(
+                            // 'New',
+                            // style: TextStyle(
+                            // fontSize: 12,
+                            // fontWeight: FontWeight.w400,
+                            // color: Colors.white),
+                            // ),
+                            // ],
+                            // );
+
+
+
+
+                          }),
                       ),
+
+                      Column(
+                      children: [
+
+                      CircleAvatar(
+                      radius: 35,
+                      backgroundColor: Colors.white,
+                      child: CircleAvatar(
+                      radius: 34.4,
+                      backgroundColor: Colors.black,
+                      child: Center(child: Icon(
+                      Icons.add, color: Colors.white,
+                      size: 28,)),
+
+                      ),
+                      ),
+                      SizedBox(height: 5,),
+                      Text(
+                      'New',
+                      style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white),
+                      ),
+                      ],
+                      )
+
                     ],
                   ),
 
@@ -411,10 +494,10 @@ class _HomeState extends State<Home> {
 
                       {
                         return Container(
-                          decoration: BoxDecoration(color: Colors.red,
+                          decoration: BoxDecoration(
 
                             borderRadius:
-                            BorderRadius.all(Radius.circular(20.0),),
+                            BorderRadius.all(Radius.circular(10.0),),
                           ),
                           child: Image.asset(
                             img[index],
@@ -437,10 +520,10 @@ class _HomeState extends State<Home> {
 
                         {
                           return Container(
-                            decoration: BoxDecoration(color: Colors.red,
+                            decoration: BoxDecoration(
 
                               borderRadius:
-                              BorderRadius.all(Radius.circular(20.0),),
+                              BorderRadius.all(Radius.circular(10.0),),
                             ),
                             child: Image.asset(
                              img[index],
