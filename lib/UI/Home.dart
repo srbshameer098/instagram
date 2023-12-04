@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import 'CustomDialog.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -25,6 +27,9 @@ List<String> img1 = [
 
 
 ];
+List<String> title = [
+  'Friends','Family','Trip',
+];
 
 int index=0;
 class _HomeState extends State<Home> {
@@ -34,7 +39,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      child: Scaffold(
+      child: Scaffold(resizeToAvoidBottomInset: false,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(70.0), // here the desired height
           child: AppBar(
@@ -59,7 +64,7 @@ class _HomeState extends State<Home> {
               ),
             ),
             centerTitle: false,
-            actions: const [
+            actions:  [
               Padding(
                 padding: EdgeInsets.only(right: 10.0),
                 child: Row(
@@ -72,10 +77,15 @@ class _HomeState extends State<Home> {
                     SizedBox(
                       width: 10,
                     ),
-                    Icon(
-                      Icons.menu_outlined,
-                      color: Colors.white,
-                      size: 28,
+                    FloatingActionButton(
+
+                      backgroundColor: Colors.transparent,
+                      onPressed: () {showDialog(context: context, builder: (BuildContext context) => CustomDialog());  },
+                      child: Icon(
+                        Icons.menu_outlined,
+                        color: Colors.white,
+                        size: 28,
+                      ),
                     ),
                   ],
                 ),
@@ -274,7 +284,7 @@ class _HomeState extends State<Home> {
                   Row(
                     children: [
                       Container(
-                        width: 100,
+                        width: 101,
                         height: 35,
 
                         decoration: BoxDecoration(
@@ -296,9 +306,9 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
-            SizedBox(width: 7,),
+            SizedBox(width: 8,),
                               Container(
-                                width: 100,
+                                width: 101,
                                 height: 35,
 
                                 decoration: BoxDecoration(
@@ -320,10 +330,10 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                             ),
-                      SizedBox(width: 7,),
+                      SizedBox(width: 8,),
 
                             Container(
-                              width: 100,
+                              width: 101,
                               height: 35,
 
                               decoration: BoxDecoration(
@@ -348,99 +358,141 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                   SizedBox(height: 15,),
-                  Row(
+                  Row(mainAxisAlignment: MainAxisAlignment.center,
+
                     children: [
-                      SizedBox(width: 280,
-                        height: 92,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: img1.length,
-                          itemBuilder: (context, index) {
-                            return
+                      Flexible(
+                        child: SizedBox(width: 260,
+                          height: 104,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: img1.length,
 
-                                  Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
+                            itemBuilder: (context, index) {
+                              return
 
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: CircleAvatar(
-                                          radius: 35,
-                                          backgroundColor: Colors.white,
-                                          child: CircleAvatar(
-                                            radius: 34.4,
-                                            backgroundColor: Colors.black,
-                                            child: Center(child:Image.asset(img1[index]),
+                                    Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
 
-                                          ),
-                                        ),
-                                         // SizedBox(height: 5,),
-                                        // Text(
-                                        //   'New',
-                                        //   style: TextStyle(
-                                        //       fontSize: 12,
-                                        //       fontWeight: FontWeight.w400,
-                                        //       color: Colors.white),
-                                        // ),
-                                        ),
-                                      )],
-                                  );
-                            // SizedBox(width: 10,),
-                            // Column(
-                            // children: [
-                            //
-                            // CircleAvatar(
-                            // radius: 35,
-                            // backgroundColor: Colors.white,
-                            // child: CircleAvatar(
-                            // radius: 34.4,
-                            // backgroundColor: Colors.black,
-                            // child: Center(child: Icon(
-                            // Icons.add, color: Colors.white,
-                            // size: 28,)),
-                            //
-                            // ),
-                            // ),
-                            // SizedBox(height: 5,),
-                            // Text(
-                            // 'New',
-                            // style: TextStyle(
-                            // fontSize: 12,
-                            // fontWeight: FontWeight.w400,
-                            // color: Colors.white),
-                            // ),
-                            // ],
-                            // );
+                                        Row(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: CircleAvatar(
+                                                    radius: 35,
+                                                    backgroundColor: Colors.white,
+                                                    child: CircleAvatar(
+                                                      radius: 34.4,
+                                                      backgroundColor: Colors.black,
+                                                      child: Center(child:Image.asset(img1[index]),
+
+                                                    ),
+                                                  ),
+                                                   // SizedBox(height: 5,),
+
+                                                  ),
+                                                ),
+                                                Text(
+                                                  title[index],
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: Colors.white),
+                                                ),
+                                              ],
+                                            ),
+
+                                            // Column(
+                                            //   children: [
+                                            //
+                                            //     CircleAvatar(
+                                            //       radius: 35,
+                                            //       backgroundColor: Colors.white,
+                                            //       child: CircleAvatar(
+                                            //         radius: 34.4,
+                                            //         backgroundColor: Colors.black,
+                                            //         child: Center(child: Icon(
+                                            //           Icons.add, color: Colors.white,
+                                            //           size: 28,)),
+                                            //
+                                            //       ),
+                                            //     ),
+                                            //     SizedBox(height: 5,),
+                                            //     Text(
+                                            //       'New',
+                                            //       style: TextStyle(
+                                            //           fontSize: 12,
+                                            //           fontWeight: FontWeight.w400,
+                                            //           color: Colors.white),
+                                            //     ),
+                                            //   ],
+                                            // )
+
+
+                                          ],
+                                    ),
+                                      ],
+                                    );
+                              // SizedBox(width: 10,),
+                              // Column(
+                              // children: [
+                              //
+                              // CircleAvatar(
+                              // radius: 35,
+                              // backgroundColor: Colors.white,
+                              // child: CircleAvatar(
+                              // radius: 34.4,
+                              // backgroundColor: Colors.black,
+                              // child: Center(child: Icon(
+                              // Icons.add, color: Colors.white,
+                              // size: 28,)),
+                              //
+                              // ),
+                              // ),
+                              // SizedBox(height: 5,),
+                              // Text(
+                              // 'New',
+                              // style: TextStyle(
+                              // fontSize: 12,
+                              // fontWeight: FontWeight.w400,
+                              // color: Colors.white),
+                              // ),
+                              // ],
+                              // );
 
 
 
 
-                          }),
+                            }),
+                        ),
                       ),
 
                       Column(
-                      children: [
+                        children: [
 
-                      CircleAvatar(
-                      radius: 35,
-                      backgroundColor: Colors.white,
-                      child: CircleAvatar(
-                      radius: 34.4,
-                      backgroundColor: Colors.black,
-                      child: Center(child: Icon(
-                      Icons.add, color: Colors.white,
-                      size: 28,)),
+                          CircleAvatar(
+                            radius: 35,
+                            backgroundColor: Colors.white,
+                            child: CircleAvatar(
+                              radius: 34.4,
+                              backgroundColor: Colors.black,
+                              child: Center(child: Icon(
+                                Icons.add, color: Colors.white,
+                                size: 28,)),
 
-                      ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                      'New',
-                      style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white),
-                      ),
-                      ],
+                            ),
+                          ),
+                          SizedBox(height: 5,),
+                          Text(
+                            'New',
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white),
+                          ),
+                        ],
                       )
 
                     ],
@@ -545,4 +597,10 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+ 
 }
+
+
+
+
+
