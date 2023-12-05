@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:instagram/Bloc/insta_bloc.dart';
+TextEditingController name=TextEditingController();
 class CustomDialog extends StatelessWidget {
 
   @override
@@ -43,14 +45,14 @@ class CustomDialog extends StatelessWidget {
                 Center(
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: new TextField(
+                      child:  TextField(controller: name,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
                               borderSide: BorderSide.none,
 
-                              borderRadius: BorderRadius.circular(50)
+                              borderRadius: BorderRadius.circular(20)
                           ),
                           hintText: 'User_name',
                           hintStyle: TextStyle(
@@ -79,7 +81,8 @@ class CustomDialog extends StatelessWidget {
                     ),
                   ),
                   onTap:(){
-                    Navigator.pop(context);
+                    BlocProvider.of<InstaBloc>(context).add(FetchInsta(message:name.text));
+                    Navigator.of(context).pop();
                   },
                 )
               ],

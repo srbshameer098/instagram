@@ -23,7 +23,7 @@ class InstaModel {
   bool? hasGuides;
   bool? hasChannel;
   bool? hasBlockedViewer;
-  int? highlightReelCount;
+  dynamic highlightReelCount;
   bool? hasRequestedViewer;
   bool? hideLikeAndViewCounts;
   String? id;
@@ -49,7 +49,7 @@ class InstaModel {
   bool? isVerifiedByMv4B;
   bool? isRegulatedC18;
   EdgeMutualFollowedBy? edgeMutualFollowedBy;
-  int? pinnedChannelsListCount;
+  dynamic pinnedChannelsListCount;
   String? profilePicUrl;
   String? profilePicUrlHd;
   bool? requestedByViewer;
@@ -303,7 +303,7 @@ class Node7 {
 }
 
 class EdgeMediaCollections {
-  int? count;
+  dynamic count;
   PageInfo3? pageInfo;
   List<dynamic>? edges;
 
@@ -348,7 +348,7 @@ class PageInfo3 {
 }
 
 class EdgeSavedMedia {
-  int? count;
+  dynamic count;
   PageInfo2? pageInfo;
   List<dynamic>? edges;
 
@@ -393,7 +393,7 @@ class PageInfo2 {
 }
 
 class EdgeOwnerToTimelineMedia {
-  int? count;
+  dynamic count;
   PageInfo1? pageInfo;
   List<Edges2>? edges;
 
@@ -456,7 +456,7 @@ class Node2 {
   EdgeMediaToCaption1? edgeMediaToCaption;
   EdgeMediaToComment1? edgeMediaToComment;
   bool? commentsDisabled;
-  int? takenAtTimestamp;
+  dynamic takenAtTimestamp;
   EdgeLikedBy1? edgeLikedBy;
   EdgeMediaPreviewLike1? edgeMediaPreviewLike;
   dynamic location;
@@ -744,8 +744,8 @@ class Edges6 {
 
 class Node6 {
   User1? user;
-  double? x;
-  double? y;
+  dynamic x;
+  dynamic y;
 
   Node6({this.user, this.x, this.y});
 
@@ -798,8 +798,8 @@ class User1 {
 }
 
 class Dimensions2 {
-  int? height;
-  int? width;
+  dynamic height;
+  dynamic width;
 
   Dimensions2({this.height, this.width});
 
@@ -818,8 +818,8 @@ class Dimensions2 {
 
 class ThumbnailResources1 {
   String? src;
-  int? configWidth;
-  int? configHeight;
+  dynamic configWidth;
+  dynamic configHeight;
 
   ThumbnailResources1({this.src, this.configWidth, this.configHeight});
 
@@ -839,7 +839,7 @@ class ThumbnailResources1 {
 }
 
 class EdgeMediaPreviewLike1 {
-  int? count;
+  dynamic count;
 
   EdgeMediaPreviewLike1({this.count});
 
@@ -855,7 +855,7 @@ class EdgeMediaPreviewLike1 {
 }
 
 class EdgeLikedBy1 {
-  int? count;
+  dynamic count;
 
   EdgeLikedBy1({this.count});
 
@@ -871,7 +871,7 @@ class EdgeLikedBy1 {
 }
 
 class EdgeMediaToComment1 {
-  int? count;
+  dynamic count;
 
   EdgeMediaToComment1({this.count});
 
@@ -1014,8 +1014,8 @@ class Edges3 {
 
 class Node3 {
   User? user;
-  double? x;
-  double? y;
+  dynamic x;
+  dynamic y;
 
   Node3({this.user, this.x, this.y});
 
@@ -1068,8 +1068,8 @@ class User {
 }
 
 class Dimensions1 {
-  int? height;
-  int? width;
+  dynamic height;
+  dynamic width;
 
   Dimensions1({this.height, this.width});
 
@@ -1106,7 +1106,7 @@ class PageInfo1 {
 }
 
 class EdgeFelixVideoTimeline {
-  int? count;
+  dynamic count;
   PageInfo? pageInfo;
   List<Edges>? edges;
 
@@ -1170,11 +1170,11 @@ class Node {
   bool? hasAudio;
   String? trackingToken;
   String? videoUrl;
-  int? videoViewCount;
+  dynamic videoViewCount;
   EdgeMediaToCaption? edgeMediaToCaption;
   EdgeMediaToComment? edgeMediaToComment;
   bool? commentsDisabled;
-  int? takenAtTimestamp;
+  dynamic takenAtTimestamp;
   EdgeLikedBy? edgeLikedBy;
   EdgeMediaPreviewLike? edgeMediaPreviewLike;
   dynamic location;
@@ -1189,7 +1189,7 @@ class Node {
   bool? isPublished;
   String? productType;
   String? title;
-  double? videoDuration;
+  dynamic videoDuration;
 
   Node({this.typename, this.id, this.shortcode, this.dimensions, this.displayUrl, this.edgeMediaToTaggedUser, this.factCheckOverallRating, this.factCheckInformation, this.gatingInfo, this.sharingFrictionInfo, this.mediaOverlayInfo, this.mediaPreview, this.owner, this.isVideo, this.hasUpcomingEvent, this.accessibilityCaption, this.dashInfo, this.hasAudio, this.trackingToken, this.videoUrl, this.videoViewCount, this.edgeMediaToCaption, this.edgeMediaToComment, this.commentsDisabled, this.takenAtTimestamp, this.edgeLikedBy, this.edgeMediaPreviewLike, this.location, this.nftAssetInfo, this.thumbnailSrc, this.thumbnailResources, this.felixProfileGridCrop, this.coauthorProducers, this.pinnedForUsers, this.viewerCanReshare, this.encodingStatus, this.isPublished, this.productType, this.title, this.videoDuration});
 
@@ -1308,8 +1308,8 @@ class Node {
 
 class ThumbnailResources {
   String? src;
-  int? configWidth;
-  int? configHeight;
+  dynamic configWidth;
+  dynamic configHeight;
 
   ThumbnailResources({this.src, this.configWidth, this.configHeight});
 
@@ -1329,7 +1329,7 @@ class ThumbnailResources {
 }
 
 class EdgeMediaPreviewLike {
-  int? count;
+  dynamic count;
 
   EdgeMediaPreviewLike({this.count});
 
@@ -1345,7 +1345,7 @@ class EdgeMediaPreviewLike {
 }
 
 class EdgeLikedBy {
-  int? count;
+  dynamic count;
 
   EdgeLikedBy({this.count});
 
@@ -1361,7 +1361,7 @@ class EdgeLikedBy {
 }
 
 class EdgeMediaToComment {
-  int? count;
+  dynamic count;
 
   EdgeMediaToComment({this.count});
 
@@ -1431,7 +1431,7 @@ class Node1 {
 class DashInfo {
   bool? isDashEligible;
   dynamic videoDashManifest;
-  int? numberOfQualities;
+  dynamic numberOfQualities;
 
   DashInfo({this.isDashEligible, this.videoDashManifest, this.numberOfQualities});
 
@@ -1507,8 +1507,8 @@ class EdgeMediaToTaggedUser {
 }
 
 class Dimensions {
-  int? height;
-  int? width;
+  dynamic height;
+  dynamic width;
 
   Dimensions({this.height, this.width});
 
@@ -1545,7 +1545,7 @@ class PageInfo {
 }
 
 class EdgeMutualFollowedBy {
-  int? count;
+  dynamic count;
   List<dynamic>? edges;
 
   EdgeMutualFollowedBy({this.count, this.edges});
@@ -1566,7 +1566,7 @@ class EdgeMutualFollowedBy {
 }
 
 class EdgeFollow {
-  int? count;
+  dynamic count;
 
   EdgeFollow({this.count});
 
@@ -1582,7 +1582,7 @@ class EdgeFollow {
 }
 
 class EdgeFollowedBy {
-  int? count;
+  dynamic count;
 
   EdgeFollowedBy({this.count});
 

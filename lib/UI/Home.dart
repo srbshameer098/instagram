@@ -1,5 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:instagram/Bloc/insta_bloc.dart';
+import 'package:instagram/Repository/ModelClass/insta_model.dart';
 
 import 'CustomDialog.dart';
 
@@ -17,33 +20,50 @@ List<String> img = [
   'assets/picture1177.png',
   'assets/picture1169.png',
   'assets/picture1171.png',
-
 ];
 
 List<String> img1 = [
   'assets/Rphoto1.png',
   'assets/Rp3.png',
   'assets/google.png',
-
-
 ];
 List<String> title = [
-  'Friends','Family','Trip',
+  'Friends',
+  'Family',
+  'Trip',
 ];
 
-int index=0;
+int index = 0;
+
+late InstaModel response;
+
 class _HomeState extends State<Home> {
-
-
+  getShortForm(int number) {
+    var shortForm = "";
+    if (number != null) {
+      if (number < 1000) {
+        shortForm = number.toString();
+      } else if (number >= 1000 && number < 1000000) {
+        shortForm = (number / 1000).toStringAsFixed(1) + "K";
+      } else if (number >= 1000000 && number < 1000000000) {
+        shortForm = (number / 1000000).toStringAsFixed(1) + "M";
+      } else if (number >= 1000000000 && number < 1000000000000) {
+        shortForm = (number / 1000000000).toStringAsFixed(1) + "B";
+      }
+    }
+    return shortForm;
+  }
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      child: Scaffold(resizeToAvoidBottomInset: false,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(70.0), // here the desired height
           child: AppBar(
-            backgroundColor: Colors.black,leadingWidth: 210,
+            backgroundColor: Colors.black,
+            leadingWidth: 210,
             leading: const Padding(
               padding: EdgeInsets.only(left: 10.0),
               child: Row(
@@ -64,7 +84,7 @@ class _HomeState extends State<Home> {
               ),
             ),
             centerTitle: false,
-            actions:  [
+            actions: [
               Padding(
                 padding: EdgeInsets.only(right: 10.0),
                 child: Row(
@@ -78,9 +98,12 @@ class _HomeState extends State<Home> {
                       width: 10,
                     ),
                     FloatingActionButton(
-
                       backgroundColor: Colors.transparent,
-                      onPressed: () {showDialog(context: context, builder: (BuildContext context) => CustomDialog());  },
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) => CustomDialog());
+                      },
                       child: Icon(
                         Icons.menu_outlined,
                         color: Colors.white,
@@ -94,513 +117,525 @@ class _HomeState extends State<Home> {
           ),
         ),
         backgroundColor: Colors.black,
-        body:  Column(crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 25.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 35,
-                    backgroundColor: Colors.grey,
-                    child: Image.asset("assets/Rphoto1.png"),
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        '6',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Post',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    width: 25,
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        '824',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Followers',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    width: 25,
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        '871',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Following',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 5,),
-            Padding(
-              padding: EdgeInsets.only(left: 25.0,right: 10.0),
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'ShameeR Babu',
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white),
-                  ),
-                  SizedBox(height: 2,),
+        body: BlocBuilder<InstaBloc, InstaState>(
+          builder: (context, state) {
+            if (state is InstablocLoading) {
+              return Center(child: CircularProgressIndicator());
+            }
+            if (state is InstablocError) {
+              return Center(
+                child: Text("ERROR"),
+              );
+            }
+            if (state is InstablocLoaded) {
+              response = BlocProvider.of<InstaBloc>(context).instaModel;
+              String folowers=getShortForm(  response.edgeFollowedBy!.count);
+              String folowing=getShortForm(  response.edgeFollow!.count);
+              String post=getShortForm(  response.highlightReelCount);
 
-                  Container(
-                    width: 140,
-                    height: 25,
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 25.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 35,
+                          backgroundColor: Colors.grey,backgroundImage: NetworkImage(response.profilePicUrl.toString()),
 
-                    decoration: BoxDecoration(
-                        color: Color(0xfd3b3940),
-                          borderRadius: BorderRadius.circular(80)),
-                   child: Center(
-                     child: Row(crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,
-                       children: [
-                         Text(
-                           '@',
-                           style: TextStyle(
-                               fontSize: 12,
-                               fontWeight: FontWeight.w400,
-                               color: Colors.white),
-                         ),
-                         SizedBox(
-                           width: 5,
-                         ),
-                         Text(
-                              'shameer___s_r_b',
+                        ),
+                        SizedBox(
+                          width: 30,
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              response.highlightReelCount.toString(),
                               style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
                                   color: Colors.white),
                             ),
-                       ],
-                     ),
-                   ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Post',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          width: 25,
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              folowers,
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Followers',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          width: 25,
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              folowing,
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Following',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white),
+                            )
+                          ],
+                        ),
+                      ],
                     ),
-
-                  Text(
-                    'Personal blog',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey),
                   ),
-
-                  Text(
-                    'Flutter developer 💻',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white),
+                  SizedBox(
+                    height: 5,
                   ),
-                  SizedBox(height: 10,),
-
-                  Container(
-                    width: 340,
-                    height: 55,
-
-
-                    decoration: BoxDecoration(
-                        color: Color(0xfd3b3940),
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Professional dashboard',
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            '253 accounts reached in the last 30 days.',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  SizedBox(height: 10,),
-
-
-                  Row(
-                    children: [
-                      Container(
-                        width: 101,
-                        height: 35,
-
-                        decoration: BoxDecoration(
-                            color: Color(0xfd3b3940),
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Center(
-                          child: Row(crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-
-
-                              Text(
-                                'Edit Profile',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white),
-                              ),
-                            ],
+                  Padding(
+                    padding: EdgeInsets.only(left: 25.0, right: 10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          response.fullName.toString(),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white),
+                        ),
+                        SizedBox(
+                          height: 2,
+                        ),
+                        Container(
+                          width: 140,
+                          height: 25,
+                          decoration: BoxDecoration(
+                              color: Color(0xfd3b3940),
+                              borderRadius: BorderRadius.circular(80)),
+                          child: Center(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '@',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                response.fullName.toString(),
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-            SizedBox(width: 8,),
-                              Container(
-                                width: 101,
-                                height: 35,
-
-                                decoration: BoxDecoration(
-                                    color: Color(0xfd3b3940),
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: Center(
-                                  child: Row(crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-
-
-                                  Text(
-                                    'Share Profile',
-                                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white),
-                                  ),
-                                  ],
+                        Text(
+                          'Personal blog',
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.grey),
+                        ),
+                        Text(
+                         response.biography.toString(),
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: 340,
+                          height: 55,
+                          decoration: BoxDecoration(
+                              color: Color(0xfd3b3940),
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Professional dashboard',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white),
                                 ),
-                              ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  '253 accounts reached in the last 30 days.',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.grey),
+                                ),
+                              ],
                             ),
-                      SizedBox(width: 8,),
-
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
                             Container(
                               width: 101,
                               height: 35,
-
                               decoration: BoxDecoration(
                                   color: Color(0xfd3b3940),
                                   borderRadius: BorderRadius.circular(8)),
                               child: Center(
-                                child: Row(crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-
-
-                                Text(
-                                  'Contact',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Edit Profile',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white),
+                                    ),
+                                  ],
                                 ),
-                                ],
                               ),
                             ),
-                          ),
-                    ],
-                  ),
-                  SizedBox(height: 15,),
-                  Row(mainAxisAlignment: MainAxisAlignment.center,
-
-                    children: [
-                      Flexible(
-                        child: SizedBox(width: 260,
-                          height: 104,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: img1.length,
-
-                            itemBuilder: (context, index) {
-                              return
-
-                                    Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-
-                                        Row(
-                                          children: [
-                                            Column(
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: CircleAvatar(
-                                                    radius: 35,
-                                                    backgroundColor: Colors.white,
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Container(
+                              width: 101,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                  color: Color(0xfd3b3940),
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: Center(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Share Profile',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Container(
+                              width: 101,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                  color: Color(0xfd3b3940),
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: Center(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Contact',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: SizedBox(
+                                width: 260,
+                                height: 104,
+                                child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: img1.length,
+                                    itemBuilder: (context, index) {
+                                      return Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
                                                     child: CircleAvatar(
-                                                      radius: 34.4,
-                                                      backgroundColor: Colors.black,
-                                                      child: Center(child:Image.asset(img1[index]),
-
+                                                      radius: 35,
+                                                      backgroundColor:
+                                                          Colors.white,
+                                                      child: CircleAvatar(
+                                                        radius: 34.4,
+                                                        backgroundColor:
+                                                            Colors.black,
+                                                        child: Center(
+                                                          child: Image.asset(
+                                                              img1[index]),
+                                                        ),
+                                                      ),
+                                                      // SizedBox(height: 5,),
                                                     ),
                                                   ),
-                                                   // SizedBox(height: 5,),
-
+                                                  Text(
+                                                    title[index],
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.white),
                                                   ),
-                                                ),
-                                                Text(
-                                                  title[index],
-                                                  style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: Colors.white),
-                                                ),
-                                              ],
-                                            ),
+                                                ],
+                                              ),
 
-                                            // Column(
-                                            //   children: [
-                                            //
-                                            //     CircleAvatar(
-                                            //       radius: 35,
-                                            //       backgroundColor: Colors.white,
-                                            //       child: CircleAvatar(
-                                            //         radius: 34.4,
-                                            //         backgroundColor: Colors.black,
-                                            //         child: Center(child: Icon(
-                                            //           Icons.add, color: Colors.white,
-                                            //           size: 28,)),
-                                            //
-                                            //       ),
-                                            //     ),
-                                            //     SizedBox(height: 5,),
-                                            //     Text(
-                                            //       'New',
-                                            //       style: TextStyle(
-                                            //           fontSize: 12,
-                                            //           fontWeight: FontWeight.w400,
-                                            //           color: Colors.white),
-                                            //     ),
-                                            //   ],
-                                            // )
-
-
-                                          ],
-                                    ),
-                                      ],
-                                    );
-                              // SizedBox(width: 10,),
-                              // Column(
-                              // children: [
-                              //
-                              // CircleAvatar(
-                              // radius: 35,
-                              // backgroundColor: Colors.white,
-                              // child: CircleAvatar(
-                              // radius: 34.4,
-                              // backgroundColor: Colors.black,
-                              // child: Center(child: Icon(
-                              // Icons.add, color: Colors.white,
-                              // size: 28,)),
-                              //
-                              // ),
-                              // ),
-                              // SizedBox(height: 5,),
-                              // Text(
-                              // 'New',
-                              // style: TextStyle(
-                              // fontSize: 12,
-                              // fontWeight: FontWeight.w400,
-                              // color: Colors.white),
-                              // ),
-                              // ],
-                              // );
-
-
-
-
-                            }),
-                        ),
-                      ),
-
-                      Column(
-                        children: [
-
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundColor: Colors.white,
-                            child: CircleAvatar(
-                              radius: 34.4,
-                              backgroundColor: Colors.black,
-                              child: Center(child: Icon(
-                                Icons.add, color: Colors.white,
-                                size: 28,)),
-
+                                              // Column(
+                                              //   children: [
+                                              //
+                                              //     CircleAvatar(
+                                              //       radius: 35,
+                                              //       backgroundColor: Colors.white,
+                                              //       child: CircleAvatar(
+                                              //         radius: 34.4,
+                                              //         backgroundColor: Colors.black,
+                                              //         child: Center(child: Icon(
+                                              //           Icons.add, color: Colors.white,
+                                              //           size: 28,)),
+                                              //
+                                              //       ),
+                                              //     ),
+                                              //     SizedBox(height: 5,),
+                                              //     Text(
+                                              //       'New',
+                                              //       style: TextStyle(
+                                              //           fontSize: 12,
+                                              //           fontWeight: FontWeight.w400,
+                                              //           color: Colors.white),
+                                              //     ),
+                                              //   ],
+                                              // )
+                                            ],
+                                          ),
+                                        ],
+                                      );
+                                      // SizedBox(width: 10,),
+                                      // Column(
+                                      // children: [
+                                      //
+                                      // CircleAvatar(
+                                      // radius: 35,
+                                      // backgroundColor: Colors.white,
+                                      // child: CircleAvatar(
+                                      // radius: 34.4,
+                                      // backgroundColor: Colors.black,
+                                      // child: Center(child: Icon(
+                                      // Icons.add, color: Colors.white,
+                                      // size: 28,)),
+                                      //
+                                      // ),
+                                      // ),
+                                      // SizedBox(height: 5,),
+                                      // Text(
+                                      // 'New',
+                                      // style: TextStyle(
+                                      // fontSize: 12,
+                                      // fontWeight: FontWeight.w400,
+                                      // color: Colors.white),
+                                      // ),
+                                      // ],
+                                      // );
+                                    }),
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 5,),
-                          Text(
-                            'New',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white),
-                          ),
-                        ],
-                      )
+                            Column(
+                              children: [
+                                CircleAvatar(
+                                  radius: 35,
+                                  backgroundColor: Colors.white,
+                                  child: CircleAvatar(
+                                    radius: 34.4,
+                                    backgroundColor: Colors.black,
+                                    child: Center(
+                                        child: Icon(
+                                      Icons.add,
+                                      color: Colors.white,
+                                      size: 28,
+                                    )),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'New',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
 
+                  // controller: tabController,
+
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TabBar(
+                    indicator: UnderlineTabIndicator(),
+                    indicatorColor: Colors.white,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    unselectedLabelColor: Colors.grey,
+                    labelColor: Colors.white,
+                    tabs: [
+                      Tab(
+                          icon: Icon(
+                        Icons.grid_on_outlined,
+                      )),
+                      Tab(
+                          icon: Icon(
+                        Icons.person_pin_outlined,
+                        size: 28,
+                      )),
                     ],
                   ),
 
-
-
-
-
-                ],
-              ),
-            ),
-
-            // controller: tabController,
-
-
-            SizedBox(height: 10,),
-            TabBar(
-              indicator: UnderlineTabIndicator(),
-              indicatorColor: Colors.white,
-              indicatorSize: TabBarIndicatorSize.tab,
-              unselectedLabelColor: Colors.grey,
-
-              labelColor: Colors.white,
-              tabs: [
-
-
-                Tab(icon: Icon(Icons.grid_on_outlined,)),
-
-                Tab(icon: Icon(Icons.person_pin_outlined,size: 28,)),
-              ],
-
-            ),
-
-
-
-            Expanded(
-              child: TabBarView(viewportFraction: 1.0,
-                children: [
-
-                  Container(
-                    child:
-                    GridView.count(
-
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 1,
-                      mainAxisSpacing: 1,childAspectRatio: 200/200,
-                      shrinkWrap: true,
-
-                      children: List.generate( img.length, (index)
-
-                      {
-                        return Container(
-                          decoration: BoxDecoration(
-
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(10.0),),
+                  Expanded(
+                    child: TabBarView(
+                      viewportFraction: 1.0,
+                      children: [
+                        Container(
+                          child: GridView.count(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 1,
+                            mainAxisSpacing: 1,
+                            childAspectRatio: 200 / 200,
+                            shrinkWrap: true,
+                            children: List.generate(
+                              img.length,
+                              (index) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10.0),
+                                    ),
+                                  ),
+                                  child: Image.asset(
+                                    img[index],
+                                    width: 40,
+                                    height: 50,
+                                  ),
+                                );
+                              },
+                            ),
                           ),
-                          child: Image.asset(
-                            img[index],
-                            width: 40,
-                            height: 50,),
-                        );
-                      },),
+                        ),
+                        Container(
+                          child: GridView.count(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 1,
+                            mainAxisSpacing: 1,
+                            childAspectRatio: 200 / 200,
+                            shrinkWrap: true,
+                            children: List.generate(
+                              img.length,
+                              (index) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10.0),
+                                    ),
+                                  ),
+                                  child: Image.asset(
+                                    img[index],
+                                    width: 40,
+                                    height: 50,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Container(
-                      child:
-                      GridView.count(
-
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 1,
-                        mainAxisSpacing: 1,childAspectRatio: 200/200,
-                        shrinkWrap: true,
-
-                        children: List.generate( img.length, (index)
-
-                        {
-                          return Container(
-                            decoration: BoxDecoration(
-
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10.0),),
-                            ),
-                            child: Image.asset(
-                             img[index],
-                              width: 40,
-                              height: 50,),
-                          );
-                        },),
-                      ),
-                  ),
                 ],
-              ),
-            ),
-
-
-
-
-          ],
+              );
+            } else {
+              return SizedBox();
+            }
+          },
         ),
       ),
     );
   }
- 
 }
-
-
-
-
-

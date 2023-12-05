@@ -18,11 +18,7 @@ class ApiClient {
       case "POST":
         response = await post(Uri.parse(url),
             headers: {
-              'content-Type': 'application/json',
-              'Content-Type': 'application/json',
-              'X-RapidAPI-Key':
-              'dbc587bffamsh2b67e6067435268p1899a2jsn82c62768dbc6',
-              'X-RapidAPI-Host': 'animimagine-ai.p.rapidapi.com',
+
             },
             body: body);
 
@@ -55,6 +51,12 @@ class ApiClient {
         response = await get(
           Uri.parse(url),
           headers: {
+
+            'X-RapidAPI-Key':
+            'dbc587bffamsh2b67e6067435268p1899a2jsn82c62768dbc6',
+            'X-RapidAPI-Host':
+            'instagram130.p.rapidapi.com'
+
           },
         );
 
