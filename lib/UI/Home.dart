@@ -69,17 +69,22 @@ class _HomeState extends State<Home> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // Icon(
+                  //   Icons.account_box,
+                  //   color: Colors.white,
+                  // ),
+SizedBox(width: 12,),
                   Text(
-                    'shameer___s_r_b',
+                    'Instagram',
                     style: TextStyle(color: Colors.white, fontSize: 22),
                   ),
                   SizedBox(
                     width: 1,
                   ),
-                  Icon(
-                    Icons.keyboard_arrow_down,
-                    color: Colors.white,
-                  ),
+                  // Icon(
+                  //   Icons.keyboard_arrow_down,
+                  //   color: Colors.white,
+                  // ),
                 ],
               ),
             ),
@@ -137,7 +142,7 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 25.0),
+                    padding: const EdgeInsets.only(left: 15.0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -152,7 +157,7 @@ class _HomeState extends State<Home> {
                         Column(
                           children: [
                             Text(
-                              response.highlightReelCount.toString(),
+                              response.edgeOwnerToTimelineMedia!.count.toString(),
                               style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600,
@@ -225,7 +230,7 @@ class _HomeState extends State<Home> {
                     height: 5,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 25.0, right: 10.0),
+                    padding: EdgeInsets.only(left: 15.0, right: 10.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -240,11 +245,12 @@ class _HomeState extends State<Home> {
                           height: 2,
                         ),
                         Container(
-                          width: 140,
+
                           height: 25,
                           decoration: BoxDecoration(
                               color: Color(0xfd3b3940),
                               borderRadius: BorderRadius.circular(80)),
+                          constraints: BoxConstraints(maxWidth: 130),
                           child: Center(
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -261,7 +267,7 @@ class _HomeState extends State<Home> {
                                   width: 5,
                                 ),
                                 Text(
-                                response.fullName.toString(),
+                                response.username.toString(),
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
@@ -272,7 +278,7 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                         Text(
-                          'Personal blog',
+                          response.categoryName.toString(),
                           style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -288,39 +294,39 @@ class _HomeState extends State<Home> {
                         SizedBox(
                           height: 10,
                         ),
-                        Container(
-                          width: 340,
-                          height: 55,
-                          decoration: BoxDecoration(
-                              color: Color(0xfd3b3940),
-                              borderRadius: BorderRadius.circular(8)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Professional dashboard',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  '253 accounts reached in the last 30 days.',
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        // Container(
+                        //   width: 340,
+                        //   height: 55,
+                        //   decoration: BoxDecoration(
+                        //       color: Color(0xfd3b3940),
+                        //       borderRadius: BorderRadius.circular(8)),
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.all(8.0),
+                        //     child: Column(
+                        //       crossAxisAlignment: CrossAxisAlignment.start,
+                        //       mainAxisAlignment: MainAxisAlignment.center,
+                        //       children: [
+                        //         Text(
+                        //           'Professional dashboard',
+                        //           style: TextStyle(
+                        //               fontSize: 14,
+                        //               fontWeight: FontWeight.w500,
+                        //               color: Colors.white),
+                        //         ),
+                        //         SizedBox(
+                        //           width: 5,
+                        //         ),
+                        //         Text(
+                        //           '253 accounts reached in the last 30 days.',
+                        //           style: TextStyle(
+                        //               fontSize: 12,
+                        //               fontWeight: FontWeight.w400,
+                        //               color: Colors.grey),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                         SizedBox(
                           height: 10,
                         ),
@@ -576,12 +582,12 @@ class _HomeState extends State<Home> {
                         Container(
                           child: GridView.count(
                             crossAxisCount: 3,
-                            crossAxisSpacing: 1,
-                            mainAxisSpacing: 1,
-                            childAspectRatio: 200 / 200,
+                            crossAxisSpacing: 2,
+                            mainAxisSpacing: 2,
+                             childAspectRatio: 200 / 200,
                             shrinkWrap: true,
                             children: List.generate(
-                              img.length,
+                              response.edgeOwnerToTimelineMedia!.edges!. length,
                               (index) {
                                 return Container(
                                   decoration: BoxDecoration(
@@ -589,8 +595,8 @@ class _HomeState extends State<Home> {
                                       Radius.circular(10.0),
                                     ),
                                   ),
-                                  child: Image.asset(
-                                    img[index],
+                                  child: Image.network(
+                                    response.edgeOwnerToTimelineMedia!.edges![index].node!.displayUrl.toString(),fit: BoxFit.fill,
                                     width: 40,
                                     height: 50,
                                   ),
@@ -607,7 +613,7 @@ class _HomeState extends State<Home> {
                             childAspectRatio: 200 / 200,
                             shrinkWrap: true,
                             children: List.generate(
-                              img.length,
+                              response.edgeOwnerToTimelineMedia!.edges!. length,
                               (index) {
                                 return Container(
                                   decoration: BoxDecoration(
@@ -615,8 +621,8 @@ class _HomeState extends State<Home> {
                                       Radius.circular(10.0),
                                     ),
                                   ),
-                                  child: Image.asset(
-                                    img[index],
+                                  child: Image.network(
+                                    response.edgeOwnerToTimelineMedia!.edges![index].node!.displayUrl.toString(),fit: BoxFit.fill,
                                     width: 40,
                                     height: 50,
                                   ),
