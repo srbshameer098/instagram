@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram/Bloc/insta_bloc.dart';
 import 'package:instagram/Repository/ModelClass/insta_model.dart';
+import 'package:instagram/UI/page1.dart';
 
 import 'CustomDialog.dart';
 
@@ -595,10 +596,16 @@ SizedBox(width: 12,),
                                       Radius.circular(10.0),
                                     ),
                                   ),
-                                  child: Image.network(
-                                    response.edgeOwnerToTimelineMedia!.edges![index].node!.displayUrl.toString(),fit: BoxFit.fill,
-                                    width: 40,
-                                    height: 50,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(builder: (_) => page1()));
+                                    },
+                                    child: Image.network(
+                                      response.edgeOwnerToTimelineMedia!.edges![index].node!.displayUrl.toString(),fit: BoxFit.fill,
+                                      width: 40,
+                                      height: 50,
+                                    ),
                                   ),
                                 );
                               },
