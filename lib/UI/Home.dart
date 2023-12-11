@@ -599,7 +599,13 @@ SizedBox(width: 12,),
                                   child: GestureDetector(
                                     onTap: () {
                                       Navigator.of(context)
-                                          .push(MaterialPageRoute(builder: (_) => page1()));
+                                          .push(MaterialPageRoute(builder: (_) => page1(
+                                        img: response.edgeOwnerToTimelineMedia!.edges![index].node!.displayUrl.toString(),
+                                      like: response.edgeOwnerToTimelineMedia!.edges![index].node!.edgeLikedBy!.count.toString(),
+                                          description: response.edgeOwnerToTimelineMedia!.edges![index].node!.edgeMediaToCaption!.edges!.isEmpty?"":response.edgeOwnerToTimelineMedia!.edges![index].node!.edgeMediaToCaption!.edges![0].node!.text.toString(),
+
+                                        comments: response.edgeOwnerToTimelineMedia!.edges![index].node!.edgeMediaToComment!.count.toString(),
+                                      )));
                                     },
                                     child: Image.network(
                                       response.edgeOwnerToTimelineMedia!.edges![index].node!.displayUrl.toString(),fit: BoxFit.fill,
