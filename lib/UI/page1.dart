@@ -7,7 +7,7 @@ class page1 extends StatefulWidget {
   final String img;
   final String like;
   final String description;
-  final String comments;
+  final int comments;
 
   const page1(
       {Key? key,
@@ -306,46 +306,48 @@ class _page1State extends State<page1> {
                                       child: Divider(thickness: 0.5,color: Colors.grey.shade800,)),
                                   Expanded(
                                     child: ListView.builder(
-                                      itemCount: widget.comments.length,
+                                      itemCount: widget.comments,
                                       itemBuilder: (context, position) {
                                         return Padding(
-                                          padding: const EdgeInsets.all(8.0),
+                                          padding:  EdgeInsets.only(left:12.w,top: 8.h),
                                           child: Row(
                                             children: [
                                     
                                               CircleAvatar(radius: 20.r,backgroundColor: Colors.red,),
                                     SizedBox(width: 10.w,),
                                     
-                                              Column(crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                    
-                                                  Row(
-                                                    children: [
-                                                      Text("data",
-                                                          style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600)
-                                                      ),
-                                    SizedBox(width: 10.w,),
-                                                      Text("data",
-                                                          style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w400,fontSize: 12.sp)
-                                                      ),
-                                                    ],
-                                                  ),
-                                    
-                                                  Text("data",
-                                                      style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400)
-                                                  ),
-                                    
-                                                  Text("Replay",
-                                                      style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w400)
-                                                  ),
-                                                ],
+                                              SizedBox(width: 150,
+                                                child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+
+                                                    Row(
+                                                      children: [
+                                                        Text("User",
+                                                            style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600)
+                                                        ),
+                                                                                    SizedBox(width: 10.w,),
+                                                        Text("time",
+                                                            style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w400,fontSize: 12.sp)
+                                                        ),
+                                                      ],
+                                                    ),
+
+                                                    Text("comment",
+                                                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400)
+                                                    ),
+
+                                                    Text("Replay",
+                                                        style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w400,fontSize: 12)
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                     
                                     
                                               SizedBox(width:100.w ,),
                                     
                                               
-                                              Icon(Icons.favorite_border,color: Colors.grey,)
+                                              Icon(Icons.favorite_border,color: Colors.grey,size: 18,)
                                     
                                     
                                     
@@ -371,7 +373,7 @@ class _page1State extends State<page1> {
                                 color: Colors.grey,
                                 fontWeight: FontWeight.w400)),
                         Text(
-                            widget.comments,
+                            widget.comments.toString(),
                             style: TextStyle(
                                 color: Colors.grey,
                                 fontWeight: FontWeight.w400)),

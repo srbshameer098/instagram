@@ -604,7 +604,7 @@ SizedBox(width: 12,),
                                       like: response.edgeOwnerToTimelineMedia!.edges![index].node!.edgeLikedBy!.count.toString(),
                                           description: response.edgeOwnerToTimelineMedia!.edges![index].node!.edgeMediaToCaption!.edges!.isEmpty?"":response.edgeOwnerToTimelineMedia!.edges![index].node!.edgeMediaToCaption!.edges![0].node!.text.toString(),
 
-                                        comments: response.edgeOwnerToTimelineMedia!.edges![index].node!.edgeMediaToComment!.count.toString(),
+                                        comments: response.edgeOwnerToTimelineMedia!.edges![index].node!.edgeMediaToComment!.count,
                                       )));
                                     },
                                     child: Image.network(
