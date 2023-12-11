@@ -88,15 +88,47 @@ SizedBox(width: 170.w,),
                   padding:  EdgeInsets.only(top: 12.h),
                   child: Row(
                     children: [
-                      Icon(Icons.favorite_border,color: Colors.white,size: 26,),
-                      SizedBox(width: 15.w,),
+                      Icon(Icons.favorite_border,color: Colors.white,size: 26.sp,),
+
 
 
                       Transform.scale(
                         scaleX: -1,
                         child:
-                      Icon(Icons.chat_bubble_outline,color: Colors.white,size: 26,),),
-                      SizedBox(width: 15.w,),
+                      TextButton(
+                        clipBehavior: Clip.none,
+                          child: Icon(Icons.chat_bubble_outline,color: Colors.white,size: 26.sp,),
+    onPressed: () {
+    // when raised button is pressed
+    // we display showModalBottomSheet
+    showModalBottomSheet<void>(
+    // context and builder are
+    // required properties in this widget
+    context: context,
+    builder: (BuildContext context) {
+    // we set up a container inside which
+    // we create center column and display text
+
+    // Returning SizedBox instead of a Container
+    return Container(
+    height: 400.h,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(25),color: Color(0xfd2c2c31),),
+    child: Center(
+    child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: const <Widget>[
+    Text('GeeksforGeeks'),
+    ],
+    ),
+    ),
+    );
+    },
+    );
+    },
+                      ),
+                      ),
+                      // SizedBox(width: 15.w,),
 
 
                     Transform.rotate(
@@ -162,12 +194,13 @@ SizedBox(width: 170.w,),
                       colorClickableText: Colors.white,
                       trimMode: TrimMode.Line,
                       trimCollapsedText: ' more',
-                      trimExpandedText: ' less',
+                      trimExpandedText: '    .... less',
 
                       moreStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold,color: Colors.white),
                     ),
                   ),
                 )
+
 
 
 
