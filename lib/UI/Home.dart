@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram/Bloc/insta_bloc.dart';
 import 'package:instagram/Repository/ModelClass/insta_model.dart';
-import 'package:instagram/UI/page1.dart';
 
 import 'CustomDialog.dart';
+import 'page1.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -605,6 +605,11 @@ SizedBox(width: 12,),
                                           description: response.edgeOwnerToTimelineMedia!.edges![index].node!.edgeMediaToCaption!.edges!.isEmpty?"":response.edgeOwnerToTimelineMedia!.edges![index].node!.edgeMediaToCaption!.edges![0].node!.text.toString(),
 
                                         comments: response.edgeOwnerToTimelineMedia!.edges![index].node!.edgeMediaToComment!.count,
+                                        tag: response.edgeOwnerToTimelineMedia!.edges![index].node!.edgeMediaToTaggedUser!.edges!,
+
+
+
+
                                       )));
                                     },
                                     child: Image.network(

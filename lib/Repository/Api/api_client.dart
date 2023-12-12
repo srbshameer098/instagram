@@ -53,7 +53,7 @@ class ApiClient {
           headers: {
 
             'X-RapidAPI-Key':
-            'dbc587bffamsh2b67e6067435268p1899a2jsn82c62768dbc6',
+            '533c926e7dmshd06f54aea0c2b1dp11567ajsnc6ff9b62b362',
             'X-RapidAPI-Host':
             'instagram130.p.rapidapi.com'
 
