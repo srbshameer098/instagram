@@ -272,7 +272,7 @@ SizedBox(width: 12,),
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
-                                      color: Colors.white),
+                                      color: Colors.white,overflow: TextOverflow.ellipsis,),
                                 ),
                               ],
                             ),

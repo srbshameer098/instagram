@@ -55,9 +55,13 @@ class _page2State extends State<page2> {
                   //   color: Colors.white,
                   // ),
                   SizedBox(width: 12,),
-                  Text(
-                    widget.username,
-                    style: TextStyle(color: Colors.white, fontSize: 22),
+                  SizedBox(width: 170.w,
+                    child: Text(
+                      widget.username,
+                      style: TextStyle(color: Colors.white, fontSize: 22,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                   ),
                   SizedBox(
                     width: 1,
@@ -240,12 +244,14 @@ class _page2State extends State<page2> {
                                   SizedBox(
                                     width: 5,
                                   ),
-                                  Text(
-                                    response.username.toString(),
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.white),
+                                  SizedBox(width: 100,
+                                    child: Text(
+                                      response.username.toString(),
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.white,overflow: TextOverflow.ellipsis,),
+                                    ),
                                   ),
                                 ],
                               ),

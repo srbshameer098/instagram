@@ -170,7 +170,9 @@ class _page1State extends State<page1> {
                                             Navigator.of(context)
                                                 .push(MaterialPageRoute(builder: (_) => page2(username:widget.tag[position].node!.user!.username.toString(),
 
-                                            )));
+                                            )
+                                            )
+                                            );
                                           },
                                           child: Row(children: [
                                             CircleAvatar(
